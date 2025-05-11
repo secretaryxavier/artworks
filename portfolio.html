@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio (Paintings & Video) — Xavier Brown</title>
+  <meta name="description" content="Gallery of paintings and video art by Xavier Brown, exploring cognition, memory, and neo-expressionism."/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <canvas id="interactive-canvas"></canvas>
+
+  <main>
+    <section id="hero-portfolio" class="hero-grid">
+      <div class="hero-text">
+        <h1>XAVIER BROWN</h1>
+        <p>Portfolio: Paintings & Video Art</p>
+        <div class="hero-buttons">
+          <a href="index.html" class="btn-primary">Home</a>
+          <a href="digital-projects.html" class="btn-primary">Digital Projects</a>
+          <a href="academicprojects.html" class="btn-primary">Research</a>
+          <a href="blog.html" class="btn-primary">Blog</a>
+          <a href="about.html" class="btn-primary">About & Contact</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="paintings-gallery" class="showcase-grid full-page-gallery">
+      <h2>Paintings</h2>
+      <div class="grid cols-3">
+        <div class="project-item">
+          <img src="assets/portfolio/threshold-memory.jpg" alt="Painting: Threshold Memory" loading="lazy">
+          <div class="project-info"><h3>Threshold Memory</h3><p>Oil on canvas, 2023. Explores the fragility and reconstruction of memory.</p></div>
+        </div>
+        <div class="project-item">
+          <img src="assets/portfolio/tonal-echoes.jpg" alt="Painting: Tonal Echoes" loading="lazy">
+          <div class="project-info"><h3>Tonal Echoes</h3><p>Mixed media on panel, 2022. Visualizing synaptic responses to auditory stimuli.</p></div>
+        </div>
+        <div class="project-item">
+          <img src="assets/portfolio/neural-forest.jpg" alt="Painting: Neural Forest" loading="lazy">
+          <div class="project-info"><h3>Neural Forest</h3><p>Acrylic on canvas, 2023. An abstraction of neural pathways and emergent complexity.</p></div>
+        </div>
+        <div class="project-item placeholder">
+          <div class="placeholder-content">Painting Slot 1</div>
+          <div class="project-info"><p>Description coming soon.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="video-art-gallery" class="showcase-grid full-page-gallery">
+  <h2>Video Art (Hosted on YouTube)</h2>
+  <div class="grid cols-2"> <div class="project-item">
+        <a href="https://www.youtube.com/watch?v=YOUR_YOUTUBE_VIDEO_ID_1" target="_blank" rel="noopener noreferrer">
+            <img src="assets/portfolio/videos/aphextwinstill.png" alt="Thumbnail for Aphex Twin Inference Video" loading="lazy">
+            <div class="project-info">
+                <h3>Aphex Twin Inference</h3>
+                <p>Visual interpretation of auditory processing. Watch on YouTube.</p>
+            </div>
+        </a>
+    </div>
+    <div class="project-item">
+        <a href="https://www.youtube.com/watch?v=YOUR_YOUTUBE_VIDEO_ID_2" target="_blank" rel="noopener noreferrer">
+            <img src="assets/portfolio/videos/xavierperformancepncastill.png" alt="Thumbnail for Embodied Cognition Performance Video" loading="lazy">
+            <div class="project-info">
+                <h3>Embodied Cognition (Performance)</h3>
+                <p>Live art performance at PNCA. Watch on YouTube.</p>
+            </div>
+        </a>
+    </div>
+    <div class="project-item placeholder">
+        <a href="https://www.youtube.com/channel/YOUR_CHANNEL_ID" target="_blank" rel="noopener noreferrer">
+            <div class="placeholder-content">More Videos on YouTube</div>
+            <div class="project-info"><p>Visit channel for more.</p></div>
+        </a>
+    </div>
+  </div>
+</section>
+  </main>  
+
+  <footer role="contentinfo">
+    <p>&copy; <span id="current-year"></span> Xavier Brown. All rights reserved.</p>
+  </footer>
+
+  <script src="https://unpkg.com/three@0.150.1/build/three.min.js" defer></script>
+  <script src="scripts.js" defer></script>
+</body>
+</html>

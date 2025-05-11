@@ -1,0 +1,23 @@
+[
+  {
+    "id": "neural-symbolism-summary",
+    "title": "Exploring Neural Symbolism",
+    "date": "2025-05-10",
+    "summary": "A concise breakdown of key findings on how neural patterns map onto symbolic cognition. Exploring the bridge between abstract thought and its physical underpinnings in the brain.",
+    "filePath": "posts/neural-symbolism-detail.html"
+  },
+  {
+    "id": "active-inference-consciousness",
+    "title": "Consciousness & Active Inference",
+    "date": "2025-04-22",
+    "summary": "An overview of recent papers examining active inference as a model of conscious perception and its implications for understanding subjective experience and the predictive brain.",
+    "filePath": "posts/active-inference-detail.html"
+  },
+  {
+    "id": "tPBM-introduction",
+    "title": "Intro to Transcranial Photobiomodulation",
+    "date": "2025-03-15",
+    "summary": "A primer on tPBM: what it is, how it's thought to work at a cellular level, and its potential applications in cognitive neuroscience and mental well-being.",
+    "filePath": "posts/tpbm-intro-detail.html" 
+  }
+]

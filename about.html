@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About & Contact — Xavier Brown</title>
+  <meta name="description" content="About Xavier Brown: artist, researcher in neuroscience and cognition. Contact information and media kit."/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <canvas id="interactive-canvas"></canvas>
+
+  <main>
+    <section id="hero-about" class="hero-grid">
+      <div class="hero-text">
+        <h1>XAVIER BROWN</h1>
+        <p>About Me & Contact Information</p>
+        <div class="hero-buttons">
+          <a href="index.html" class="btn-primary">Home</a>
+          <a href="portfolio.html" class="btn-primary">Portfolio</a>
+          <a href="academicprojects.html" class="btn-primary">Research</a>
+          <a href="blog.html" class="btn-primary">Blog</a>
+          <a href="#contact" class="btn-primary">Contact Me</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="about-main" class="grid cols-flexible about-grid-full">
+      <div class="about-text-full">
+        <h2>My Journey</h2>
+        <p>I think of my work as a dance—an ever-longing play of life, where self dissolves and perception peels back to childhood wonder. My pieces aren’t passive objects but living invitations: you, the observer and participant, become part of the conceptual loop, embodied within the art.</p>
+        <p>While labels feel constricting, I gravitate toward contemporary neo-expressionism, drawing inspiration from quantum mechanics, philosophy, consciousness studies, extraterrestrial imaginaries, meditation, psychotropic exploration, and love. My academic path in honors psychology at Portland State University fuels this exploration, allowing me to bridge artistic intuition with rigorous scientific inquiry, particularly in neuroscience and cognition.</p>
+      </div>
+      <div class="about-image-full">
+        <img src="assets/portrait.jpg" alt="Portrait of Xavier Brown" loading="lazy">
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="academic-bio" class="content-section">
+      <h2>Academic Bio</h2>
+      <ul>
+        <li><strong>Portland State University</strong> (2023–Present) — Honors Psychology, Junior. Focus on cognitive neuroscience, consciousness studies.</li>
+        <li><strong>Interdisciplinary Neuroscience Association (INA)</strong> — Active Member, Past Science Officer. Engaging in cross-disciplinary research discussions and initiatives.</li>
+        <li><strong>Psi Chi International Honors Society</strong> — Member, PSU Chapter. Recognized for academic excellence in psychology.</li>
+        <li><strong>Pacific Northwest College of Art (PNCA)</strong> (2022–2023) — Painting Student. Foundational studies in visual arts and expression.</li>
+        <li><strong>Portland Community College</strong> (2018–2020) — Early College High School Program. Accelerated academic start.</li>
+      </ul>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="artistic-statement" class="content-section">
+      <h2>Artistic Statement</h2>
+      <p>My practice sits at the intersection of internal cognition and external representation—art as both process and artifact. I frame each piece as a feedback loop, where memory, ritual, and neural resonance converge to create an immersive experience. The aim is not merely to represent, but to evoke and explore the mechanisms of perception and consciousness themselves, transforming the artwork into a site of cognitive exploration.</p>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="contact" class="contact-grid">
+      <div>
+        <h2>Contact & Connect</h2>
+        <p>For inquiries, collaborations, or discussions:</p>
+        <p><strong>Email:</strong> <a href="mailto:xavier@example.com">xavier@example.com</a></p>
+        <p><strong>Twitter:</strong> <a href="https://twitter.com/xavierbrown" target="_blank" rel="noopener noreferrer">@xavierbrown</a></p>
+        </div>
+      <div>
+        <h2>Media & Press</h2>
+        <p><a href="docs/Press_Kit.zip" class="btn-secondary" download>Download Press Kit (ZIP)</a></p>
+        <p><a href="docs/XavierBrown_CV.pdf" class="btn-secondary" download>Download CV (PDF)</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <p>&copy; <span id="current-year"></span> Xavier Brown. All rights reserved.</p>
+  </footer>
+
+  <script src="https://unpkg.com/three@0.150.1/build/three.min.js" defer></script>
+  <script src="scripts.js" defer></script>
+</body>
+</html>

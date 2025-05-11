@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog & Reflections — Xavier Brown</title>
+  <meta name="description" content="Blog by Xavier Brown: Article summaries, research notes, and creative thoughts on art, neuroscience, and consciousness."/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <canvas id="interactive-canvas"></canvas>
+  <main>
+    <section id="hero-blog" class="hero-grid">
+      <div class="hero-text">
+        <h1>XAVIER BROWN</h1>
+        <p>Blog: Insights on Art, Cognition & Neuroscience</p>
+        <div class="hero-buttons">
+          <a href="index.html" class="btn-primary">Home</a>
+          <a href="portfolio.html" class="btn-primary">Portfolio</a>
+          <a href="academicprojects.html" class="btn-primary">Research</a>
+          <a href="about.html" class="btn-primary">About & Contact</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="blog-main-content" class="content-section">
+      <h2>All Posts</h2>
+      <div id="blog-posts-container" class="blog-list-container">
+        <p class="loading-message">Loading posts...</p>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <p>&copy; <span id="current-year"></span> Xavier Brown. All rights reserved.</p>
+  </footer>
+
+  <script src="https://unpkg.com/three@0.150.1/build/three.min.js" defer></script>
+  <script src="scripts.js" defer></script>
+  </body>
+</html>
