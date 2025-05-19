@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>The Black Cube | Xavier Brown</title> <meta name="description" content="Enter the Black Cube - an interactive 3D gallery experience by Xavier Brown." />
+    <title>The Black Cube | Xavier Brown</title>
+    <meta name="description" content="Enter the Black Cube - an interactive 3D gallery experience by Xavier Brown." />
     <link rel="stylesheet" href="styles.css"/> 
     <style>
-        /* Styles specific to the gallery page */
         body {
             margin: 0;
-            overflow: hidden; /* Prevent scrollbars from the canvas */
-            background-color: #050505; /* Match scene background for seamless loading */
-            color: var(--color-text, #e0e0e0); /* Use variable from styles.css or fallback */
-            font-family: var(--font-body, 'Inter', sans-serif); /* Use variable or fallback */
+            overflow: hidden; 
+            background-color: #050505; 
+            color: var(--color-text, #e0e0e0); 
+            font-family: var(--font-body, 'Inter', sans-serif); 
         }
         #gallery-canvas {
             display: block; 
@@ -25,33 +25,32 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #0a0f1f; /* Consistent loading screen color */
+            background-color: #0a0f1f; 
             color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 1.5rem;
             z-index: 10; 
-            transition: opacity 0.5s ease-out; /* For smooth fade out */
+            transition: opacity 0.5s ease-out;
         }
         .loading-screen.hidden {
             opacity: 0;
-            pointer-events: none; /* Allow clicks to pass through when hidden */
+            pointer-events: none; 
         }
         .crosshair {
             position: fixed;
             top: 50%;
             left: 50%;
-            width: 8px; /* Smaller crosshair */
+            width: 8px; 
             height: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.7); /* Softer white */
+            border: 1px solid rgba(255, 255, 255, 0.7); 
             border-radius: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none; 
             display: none; 
-            z-index: 5; /* Ensure it's above canvas but below other UI if any */
+            z-index: 5;
         }
-        /* Instructions overlay (optional) */
         .instructions {
             position: fixed;
             bottom: 20px;
@@ -64,7 +63,7 @@
             font-size: 0.9rem;
             z-index: 5;
             text-align: center;
-            display: none; /* Hidden by default, shown when pointer is locked */
+            display: none;
         }
     </style>
 </head>
@@ -76,9 +75,6 @@
         Move: WASD/Arrows | Look: Mouse | Interact: Click | Exit: ESC
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/controls/PointerLockControls.js"></script>
-    
     <script src="gallery_scripts.js" type="module"></script>
 </body>
 </html>
