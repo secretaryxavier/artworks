@@ -40,7 +40,7 @@ const initialAnimationDuration = 3;
 // IMPORTANT: Update these paths to your actual files!
 const manuscriptPDFPath = 'docs/your_manuscript_excerpt.pdf'; 
 const cathedralModelPath = 'assets/models/cathedral.glb'; 
-const technoWiresFloorTexturePath = 'assets/textures/YOUR_TECHNO_WIRES_IMAGE.jpg'; // <-- RENAME THIS
+const technoWiresFloorTexturePath = 'assets/TechnoBrosDoomScape.png'; // <-- RENAME THIS
 
 let paintingPlanes = []; // Array to hold painting planes
 
