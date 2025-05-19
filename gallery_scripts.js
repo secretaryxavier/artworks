@@ -137,10 +137,12 @@ function init() {
     leftWall.castShadow = true; leftWall.receiveShadow = true;
     blackCubeGroup.add(leftWall);
 
-    const rightWall = new THREE.Mesh(new THREE.BoxGrometry(wallThickness, wallHeight, cubeSize), [exteriorMaterial, interiorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial]);
-    rightWall.position.set(cubeSize / 2 - wallThickness / 2, wallHeight / 2 + wallThickness / 2, 0);
-    rightWall.castShadow = true; rightWall.receiveShadow = true;
-    blackCubeGroup.add(rightWall);
+    // CORRECTED LINE: BoxGrometry to BoxGeometry
+    const rightWall = new THREE.BoxGeometry(wallThickness, wallHeight, cubeSize); // This was geometry, not mesh
+    const rightWallMesh = new THREE.Mesh(rightWall, [exteriorMaterial, interiorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial]);
+    rightWallMesh.position.set(cubeSize / 2 - wallThickness / 2, wallHeight / 2 + wallThickness / 2, 0);
+    rightWallMesh.castShadow = true; rightWallMesh.receiveShadow = true;
+    blackCubeGroup.add(rightWallMesh);
 
     const doorWidth = 2;
     const doorHeight = 2.8; 
