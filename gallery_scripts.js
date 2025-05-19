@@ -40,7 +40,7 @@ const initialAnimationDuration = 3;
 // IMPORTANT: Update these paths to your actual PDF file!
 const manuscriptPDFPath = 'docs/your_manuscript_excerpt.pdf'; 
 // IMPORTANT: Update this path to your actual cathedral model file!
-const cathedralModelPath = 'assets/models/cathedral.glb'; 
+const cathedralModelPath = 'assets/cathedral.glb'; 
 // IMPORTANT: Update this path to your actual black marble texture file!
 const blackMarbleTexturePath = 'assets/textures/black_marble.jpg';
 
