@@ -1,8 +1,9 @@
 // gallery_scripts.js
 
-// Explicitly import THREE and PointerLockControls from their module URLs
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.module.js';
-import { PointerLockControls } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/controls/PointerLockControls.js';
+// Import THREE and PointerLockControls using bare specifiers,
+// which will be resolved by the import map in gallery.html.
+import * as THREE from 'three';
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 
 let scene, camera, renderer, controls;
 let floor;
@@ -20,8 +21,6 @@ const keys = {
     W: false, A: false, S: false, D: false,
     ArrowUp: false, ArrowLeft: false, ArrowDown: false, ArrowRight: false
 };
-// playerVelocity is not strictly needed with how controls.moveForward/Right are used
-// let playerVelocity = new THREE.Vector3(); 
 const moveSpeed = 4; 
 
 let raycaster;
@@ -30,21 +29,18 @@ let interactableObjects = [];
 let initialAnimationTime = 0;
 const initialAnimationDuration = 3; // seconds
 
-// Store the PDF path here - update this to the actual path of your PDF
-const manuscriptPDFPath = 'docs/your_manuscript_excerpt.pdf'; // IMPORTANT: Update this path!
+// IMPORTANT: Update this path to your actual PDF file!
+const manuscriptPDFPath = 'docs/your_manuscript_excerpt.pdf'; 
 
 function init() {
-    // Ensure essential DOM elements are present
     if (!canvas) {
-        console.error("gallery-canvas not found!");
-        if (loadingScreen) loadingScreen.textContent = 'Error: Canvas not found.';
-        return;
+        console.error("CRITICAL: gallery-canvas DOM element not found!");
+        if (loadingScreen) loadingScreen.textContent = 'Error: Canvas element missing.';
+        return; 
     }
     if (!loadingScreen) {
-        console.error("loadingScreen element not found!");
-        // Can't update loading screen text if it's not found
+        console.warn("loadingScreen DOM element not found! UI may not update as expected.");
     }
-
 
     // Scene
     scene = new THREE.Scene();
@@ -78,9 +74,6 @@ function init() {
     directionalLight.shadow.camera.top = 30;
     directionalLight.shadow.camera.bottom = -30;
     scene.add(directionalLight);
-    // For debugging shadows:
-    // scene.add(new THREE.CameraHelper(directionalLight.shadow.camera));
-    // scene.add(new THREE.DirectionalLightHelper(directionalLight, 2));
 
     // --- Outer Environment ---
     const floorGeometry = new THREE.PlaneGeometry(200, 200);
@@ -111,7 +104,6 @@ function init() {
         roughness: 0.95,
     });
     
-    // Cube Floor
     const cubeFloorGeo = new THREE.BoxGeometry(cubeSize, wallThickness, cubeSize);
     const cubeFloorMesh = new THREE.Mesh(cubeFloorGeo, [
         exteriorMaterial, exteriorMaterial, 
@@ -122,7 +114,6 @@ function init() {
     cubeFloorMesh.receiveShadow = true;
     blackCubeGroup.add(cubeFloorMesh);
 
-    // Cube Ceiling
     const cubeCeilGeo = new THREE.BoxGeometry(cubeSize, wallThickness, cubeSize);
     const cubeCeilingMesh = new THREE.Mesh(cubeCeilGeo, [
         exteriorMaterial, exteriorMaterial, 
@@ -136,36 +127,32 @@ function init() {
     
     const wallHeight = cubeActualHeight - wallThickness;
 
-    // Back Wall (Z-)
-    const backWall = new THREE.Mesh(new THREE.BoxGeometry(cubeSize - 2 * wallThickness, wallHeight, wallThickness), [exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, interiorMaterial]);
+    const backWall = new THREE.Mesh(new THREE.BoxGeometry(cubeSize - 2 * wallThickness, wallHeight, wallThickness), [exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, interiorMaterial, exteriorMaterial]);
     backWall.position.set(0, wallHeight / 2 + wallThickness / 2, -cubeSize / 2 + wallThickness / 2);
     backWall.castShadow = true; backWall.receiveShadow = true;
     blackCubeGroup.add(backWall);
 
-    // Left Wall (X-)
     const leftWall = new THREE.Mesh(new THREE.BoxGeometry(wallThickness, wallHeight, cubeSize), [interiorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial]);
     leftWall.position.set(-cubeSize / 2 + wallThickness / 2, wallHeight / 2 + wallThickness / 2, 0);
     leftWall.castShadow = true; leftWall.receiveShadow = true;
     blackCubeGroup.add(leftWall);
 
-    // Right Wall (X+)
-    const rightWall = new THREE.Mesh(new THREE.BoxGeometry(wallThickness, wallHeight, cubeSize), [exteriorMaterial, interiorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial]);
+    const rightWall = new THREE.Mesh(new THREE.BoxGrometry(wallThickness, wallHeight, cubeSize), [exteriorMaterial, interiorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial]);
     rightWall.position.set(cubeSize / 2 - wallThickness / 2, wallHeight / 2 + wallThickness / 2, 0);
     rightWall.castShadow = true; rightWall.receiveShadow = true;
     blackCubeGroup.add(rightWall);
 
-    // Front Wall (with opening) - Z+
     const doorWidth = 2;
     const doorHeight = 2.8; 
     const sidePanelWidth = (cubeSize - doorWidth - 2 * wallThickness) / 2;
 
-    if (sidePanelWidth > 0.01) { // Check if side panels have meaningful width
-        const frontPanelLeft = new THREE.Mesh(new THREE.BoxGeometry(sidePanelWidth, wallHeight, wallThickness), [exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, interiorMaterial, exteriorMaterial]);
+    if (sidePanelWidth > 0.01) {
+        const frontPanelLeft = new THREE.Mesh(new THREE.BoxGeometry(sidePanelWidth, wallHeight, wallThickness), [exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, interiorMaterial]);
         frontPanelLeft.position.set(- (doorWidth / 2 + sidePanelWidth / 2), wallHeight / 2 + wallThickness/2, cubeSize / 2 - wallThickness / 2);
         frontPanelLeft.castShadow = true; frontPanelLeft.receiveShadow = true;
         blackCubeGroup.add(frontPanelLeft);
 
-        const frontPanelRight = new THREE.Mesh(new THREE.BoxGeometry(sidePanelWidth, wallHeight, wallThickness), [exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, interiorMaterial, exteriorMaterial]);
+        const frontPanelRight = new THREE.Mesh(new THREE.BoxGeometry(sidePanelWidth, wallHeight, wallThickness), [exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, interiorMaterial]);
         frontPanelRight.position.set( (doorWidth / 2 + sidePanelWidth / 2), wallHeight / 2 + wallThickness/2, cubeSize / 2 - wallThickness / 2);
         frontPanelRight.castShadow = true; frontPanelRight.receiveShadow = true;
         blackCubeGroup.add(frontPanelRight);
@@ -173,7 +160,7 @@ function init() {
     
     const lintelHeight = wallHeight - doorHeight;
     if (lintelHeight > 0.01) { 
-        const lintel = new THREE.Mesh(new THREE.BoxGeometry(doorWidth, lintelHeight, wallThickness), [exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, interiorMaterial, exteriorMaterial]);
+        const lintel = new THREE.Mesh(new THREE.BoxGeometry(doorWidth, lintelHeight, wallThickness), [exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, exteriorMaterial, interiorMaterial]);
         lintel.position.set(0, doorHeight + lintelHeight / 2 + wallThickness/2, cubeSize / 2 - wallThickness / 2);
         lintel.castShadow = true; lintel.receiveShadow = true;
         blackCubeGroup.add(lintel);
@@ -190,7 +177,6 @@ function init() {
     interiorLight1.shadow.mapSize.height = 512;
     interiorLight1.shadow.bias = -0.005; 
     blackCubeGroup.add(interiorLight1); 
-    // scene.add(new THREE.PointLightHelper(interiorLight1, 0.3));
 
     const benchMaterial = new THREE.MeshStandardMaterial({ color: 0x4a3b2a, roughness: 0.85, metalness: 0.1 });
     const benchSeatGeo = new THREE.BoxGeometry(1.8, 0.25, 0.6);
@@ -212,23 +198,20 @@ function init() {
     paintingPlane1.rotation.y = Math.PI / 2;
     paintingPlane1.castShadow = false; paintingPlane1.receiveShadow = true; 
     blackCubeGroup.add(paintingPlane1);
-    // paintingPlane1.userData = { name: "painting_1", imagePath: "assets/paintings/painting1.jpg"}; 
 
     paintingPlane2 = new THREE.Mesh(paintingGeo, paintingPlaceholderMaterial.clone());
     paintingPlane2.position.set(0, cubeActualHeight/2 - 0.2, -cubeSize/2 + wallThickness + 0.1); 
     paintingPlane2.castShadow = false; paintingPlane2.receiveShadow = true;
     blackCubeGroup.add(paintingPlane2);
-    // paintingPlane2.userData = { name: "painting_2", imagePath: "assets/paintings/painting2.jpg"};
 
     paintingPlane3 = new THREE.Mesh(paintingGeo, paintingPlaceholderMaterial.clone());
     paintingPlane3.position.set(cubeSize/2 - wallThickness - 0.1, cubeActualHeight/2 - 0.2, 0); 
     paintingPlane3.rotation.y = -Math.PI / 2;
     paintingPlane3.castShadow = false; paintingPlane3.receiveShadow = true;
     blackCubeGroup.add(paintingPlane3);
-    // paintingPlane3.userData = { name: "painting_3", imagePath: "assets/paintings/painting3.jpg"};
 
     // --- Controls and Interaction Setup ---
-    controls = new PointerLockControls(camera, document.body); // Use the imported PointerLockControls
+    controls = new PointerLockControls(camera, document.body); 
     
     canvas.addEventListener('click', () => {
         if (!controls.isLocked) {
@@ -256,8 +239,6 @@ function init() {
 
     if (loadingScreen) {
         loadingScreen.classList.add('hidden'); 
-    } else {
-        console.warn("loadingScreen element was not found at the end of init.");
     }
     animate();
 }
@@ -289,29 +270,26 @@ function handleInteractionClick() {
 }
 
 function updatePlayerPosition(delta) {
-    // This check is important: only move if controls are locked AND initial animation is done.
     if (!controls.isLocked || initialAnimationTime < initialAnimationDuration) return;
 
     const speed = moveSpeed * delta;
     let moveForwardAmount = 0;
     let moveRightAmount = 0;
 
-    if (keys.w || keys.W || keys.ArrowUp) moveForwardAmount -= 1; // Use 1 or -1 for direction
+    if (keys.w || keys.W || keys.ArrowUp) moveForwardAmount -= 1; 
     if (keys.s || keys.S || keys.ArrowDown) moveForwardAmount += 1;
     if (keys.a || keys.A || keys.ArrowLeft) moveRightAmount -= 1;
     if (keys.d || keys.D || keys.ArrowRight) moveRightAmount += 1;
     
-    // Normalize diagonal movement and apply speed
-    const moveDirection = new THREE.Vector2(moveRightAmount, moveForwardAmount).normalize();
-    
-    if (moveDirection.lengthSq() > 0) { // Check if there's any movement input
+    const moveDirection = new THREE.Vector2(moveRightAmount, moveForwardAmount);
+    if (moveDirection.lengthSq() > 0.001) { 
+        moveDirection.normalize(); 
         controls.moveForward(moveDirection.y * speed);
         controls.moveRight(moveDirection.x * speed);
     }
     
     camera.position.y = 1.7; 
 }
-
 
 function animateInitialCamera(delta) {
     if (initialAnimationTime < initialAnimationDuration) {
@@ -337,41 +315,36 @@ function animate() {
     if (initialAnimationTime < initialAnimationDuration) {
         animateInitialCamera(delta);
     } else {
-        // updatePlayerPosition already checks if controls are locked
         updatePlayerPosition(delta);
     }
     
     renderer.render(scene, camera);
 }
 
-// --- Load Textures for Paintings (Example) ---
 function loadPaintingTextures() {
     const textureLoader = new THREE.TextureLoader();
     // Example:
     // const paintingTexture1 = textureLoader.load('assets/paintings/your_painting_image1.jpg', 
     //     (texture) => {
-    //         if (paintingPlane1) {
+    //         if (paintingPlane1) { 
     //             paintingPlane1.material.map = texture;
     //             paintingPlane1.material.color.set(0xffffff); 
     //             paintingPlane1.material.needsUpdate = true;
     //             console.log("Painting 1 texture loaded.");
     //         }
     //     },
-    //     undefined,
+    //     undefined, 
     //     (error) => { console.error("Error loading painting 1 texture:", error); }
     // );
 }
 
 // --- Start ---
-// DOM is ready when a module script executes.
-// Call init directly.
 try {
     init();
-    // loadPaintingTextures(); // Call when ready
+    // loadPaintingTextures(); 
 } catch (error) {
-    console.error("Error during initialization or animation setup:", error);
+    console.error("CRITICAL ERROR during gallery initialization:", error);
     if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
-        loadingScreen.textContent = 'An error occurred. Cannot load gallery.';
+        loadingScreen.textContent = 'Error loading gallery. Check console.';
     }
 }
-
