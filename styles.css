@@ -83,7 +83,7 @@ main {
 .grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
 .grid.cols-flexible { 
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-  align-items: center;
+  align-items: center; /* Changed from stretch to center for better alignment with mixed content heights */
 }
 
 
@@ -103,7 +103,7 @@ p, li {
   color: var(--color-text-secondary);
 }
 strong { font-weight: var(--font-weight-semibold); color: var(--color-text); }
-ul { list-style-position: outside; padding-left: var(--space-sm); }
+ul { list-style-position: outside; padding-left: var(--space-sm); } /* Changed from inside to outside for better alignment */
 ul li { margin-bottom: var(--space-xs); }
 
 /* Links & Buttons */
@@ -182,14 +182,20 @@ a:focus-visible {
   justify-content: center;
 }
 
-/* Section Divider */
-.section-divider {
+/* Section Divider & Heartbeat Divider */
+.section-divider, .heartbeat-divider {
   width: 80%;
   max-width: 400px;
   height: 1px;
   background: linear-gradient(to right, transparent, var(--color-divider), transparent);
   margin: var(--space-xl) auto; 
 }
+/* If you want a specific style for heartbeat-divider, you can add it here or use as is */
+.heartbeat-divider { 
+  /* Example: make it slightly different if needed */
+  /* background: linear-gradient(to right, transparent, var(--color-highlight), transparent); */
+}
+
 
 /* Content Sections (general styling for text-heavy parts) */
 .content-section {
@@ -212,7 +218,7 @@ a:focus-visible {
   border-radius: var(--border-radius-md);
   border: 1px solid var(--color-divider);
   object-fit: cover;
-  margin: 0 auto; 
+  margin: 0 auto; /* Center image if grid column is wider */
 }
 .about-text-preview .btn-secondary,
 .about-links-preview .btn-secondary {
@@ -220,8 +226,10 @@ a:focus-visible {
 }
 .about-links-preview {
     display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
     gap: var(--space-sm);
     margin-top: var(--space-md);
+    justify-content: center; /* Center buttons if they wrap in a centered text block */
 }
 
 /* Showcase Grid & Project Items (Unified Card Style) */
@@ -243,7 +251,8 @@ a:focus-visible {
   flex-direction: column;
   height: 100%; 
 }
-.project-item a {
+/* Make the entire project item clickable if it contains an <a> tag */
+.project-item > a {
   text-decoration: none;
   color: inherit;
   display: flex; 
@@ -274,12 +283,21 @@ a:focus-visible {
   margin-bottom: var(--space-xs);
   font-weight: var(--font-weight-medium);
 }
-.project-item .project-info p {
+.project-item .project-info p { /* General paragraph style within project info */
   font-size: 0.9rem;
   color: var(--color-text-secondary);
   margin-bottom: 0; 
   line-height: 1.5; 
 }
+/* Style for direct <p> children of .project-item if not using .project-info */
+.project-item > p {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 1.1rem;
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: 0;
+}
+
 .project-item.placeholder a .placeholder-content { 
   width: 100%;
   aspect-ratio: 16/9;
@@ -305,7 +323,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   justify-content: space-between; 
-  transition: background-color var(--transition-medium), border-color var(--transition-medium), box-shadow var(--transition-medium);
+  transition: background-color var(--transition-medium), border-color var(--transition-medium), box-shadow var(--transition-medium), transform var(--transition-medium);
   box-shadow: 0 5px 15px var(--color-card-shadow);
   height: 100%; 
 }
@@ -328,7 +346,7 @@ a:focus-visible {
 }
 .blog-card .btn-secondary, .research-card .btn-secondary { 
     align-self: flex-start; 
-    margin-top: auto; 
+    margin-top: auto; /* Pushes button to bottom if text is short */
 }
 
 /* Blog Page (List of Summaries) */
@@ -475,14 +493,17 @@ footer p { margin-bottom: var(--space-xs); }
     max-width: 300px; 
   }
   .grid.cols-2, .grid.cols-3 { 
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* All grids become single column */
   }
   .about-grid-preview, .about-grid-full { 
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Specifically for these if they need it */
     text-align: center; 
   }
   .about-image-preview img, .about-image-full img {
     margin-bottom: var(--space-md); 
+  }
+  .about-links-preview {
+    justify-content: center; /* Ensure buttons in about links are centered */
   }
 }
 @media (max-width: 480px) {
