@@ -40,7 +40,7 @@ const initialAnimationDuration = 3;
 // IMPORTANT: Update these paths to your actual files!
 const manuscriptPDFPath = 'docs/your_manuscript_excerpt.pdf'; 
 const cathedralModelPath = 'assets/models/cathedral.glb'; 
-const technoWiresFloorTexturePath = 'assets/textures/techno_wires_floor.jpg'; // UPDATE THIS PATH
+const technoWiresFloorTexturePath = 'assets/textures/YOUR_TECHNO_WIRES_IMAGE.jpg'; // <-- RENAME THIS
 
 let paintingPlanes = []; // Array to hold painting planes
 
@@ -93,11 +93,12 @@ function init() {
         metalness: 0.4, 
     });
     textureLoader.load(
-        technoWiresFloorTexturePath, // Uses the variable defined at the top
+        technoWiresFloorTexturePath, // Uses the variable you updated at the top
         function(loadedTexture) { 
             loadedTexture.wrapS = THREE.RepeatWrapping; 
             loadedTexture.wrapT = THREE.RepeatWrapping; 
-            loadedTexture.repeat.set(10, 10); // Adjust tiling (e.g., 10x10 repetition)
+            // Adjust tiling here (e.g., 10x10 repetition)
+            loadedTexture.repeat.set(10, 10); 
             floorMaterial.map = loadedTexture;
             floorMaterial.color.set(0xffffff); 
             floorMaterial.needsUpdate = true;
